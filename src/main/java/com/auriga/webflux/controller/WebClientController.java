@@ -1,6 +1,6 @@
 package com.auriga.webflux.controller;
 
-import com.auriga.webflux.EmployeeDto;
+import com.auriga.webflux.dto.EmployeeDto;
 import com.auriga.webflux.entity.Employee;
 import jdk.jfr.ContentType;
 import org.springframework.http.MediaType;
@@ -18,19 +18,10 @@ import java.util.function.Function;
 public class WebClientController {
     WebClient client = WebClient.create("http://localhost:8083");
 
-    @GetMapping("/employee/{id}")
-    public void getEmployee(@PathVariable Integer id) {
-        Mono<Employee> employeeMono = client.get()
-                .uri("/employees/{id}", id)
-                .retrieve()
-                .bodyToMono(Employee.class);
-
-        employeeMono.subscribe(System.out::println);
-    }
-
+    /* Webclient - Get API Example */
     @GetMapping("/employee/{id}/name")
-    public void getEmployeeName(@PathVariable Integer id) {
-        Mono<String> employeeMono = client.get()
+    public Mono<String> getEmployeeName(@PathVariable Integer id) {
+        return client.get()
                 .uri("/employees/{id}", id)
                 .retrieve()
                 .bodyToMono(Employee.class)
@@ -40,28 +31,9 @@ public class WebClientController {
                         return employee.getName();
                     }
                 });
-
-        employeeMono.subscribe(System.out::println);
     }
 
-    @GetMapping("/employee/all")
-    public void getAllEmployee() {
-        Flux<Employee> employeeMono = client.get()
-                .uri("/employees/all")
-                .retrieve()
-                .bodyToFlux(Employee.class);
-
-        employeeMono.subscribe(System.out::println);
-    }
-
-    @GetMapping("/employee/random/id")
-    public Mono<String> getRandomEmployeeId() {
-        return client.get()
-                .uri("/employees/random/uuid")
-                .retrieve()
-                .bodyToMono(String.class);
-    }
-
+    /* Webclient - Post API Example */
     @PostMapping("/employee/create")
     public Mono<String> createEmployee(@RequestBody EmployeeDto employeeDto) {
         return client.post()

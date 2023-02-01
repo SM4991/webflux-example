@@ -1,6 +1,6 @@
 package com.auriga.webflux.controller;
 
-import com.auriga.webflux.EmployeeDto;
+import com.auriga.webflux.dto.EmployeeDto;
 import com.auriga.webflux.entity.Employee;
 import com.auriga.webflux.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +21,19 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    /* Mono - Get API Example */
     @GetMapping("/{id}")
     private Mono<Employee> getEmployeeById(@PathVariable Integer id) {
         return employeeRepository.findEmployeeById(id);
     }
 
+    /* Flux - Get API Example */
     @GetMapping("/all")
     private Flux<Employee> getAll() {
         return employeeRepository.findAll();
     }
 
-    @GetMapping("/random/uuid")
-    private String getRandomEmployeeId() {
-        return UUID.randomUUID().toString();
-    }
-
+    /* Mono - Post API Example */
     @PostMapping(value = "/create")
     private Mono<Employee> createEmployee(@RequestBody EmployeeDto employeeDto) {
         Employee employee = new Employee();

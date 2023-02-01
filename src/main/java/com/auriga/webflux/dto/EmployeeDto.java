@@ -1,4 +1,4 @@
-package com.auriga.webflux;
+package com.auriga.webflux.dto;
 
 import lombok.Getter;
 import lombok.Setter;

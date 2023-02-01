@@ -12,14 +12,10 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Data
-public class Employee {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
-
-    @Column(name = "name")
-    String name;
-
-    @Column(name = "email")
-    String email;
+    private Integer id;
+    private String userName;
+    private Integer balance;
 }
