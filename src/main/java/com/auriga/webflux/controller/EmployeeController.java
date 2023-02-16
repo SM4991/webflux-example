@@ -3,16 +3,11 @@ package com.auriga.webflux.controller;
 import com.auriga.webflux.dto.EmployeeDto;
 import com.auriga.webflux.entity.Employee;
 import com.auriga.webflux.repository.EmployeeRepository;
+//import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Function;
 
 @RestController
 @RequestMapping("/employees")
@@ -22,6 +17,7 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
     /* Mono - Get API Example */
+//    @ApiOperation(value = "Employee Detail", response = AddDefaultCharsetFilter.ResponseWrapper.class)
     @GetMapping("/{id}")
     private Mono<Employee> getEmployeeById(@PathVariable Integer id) {
         return employeeRepository.findEmployeeById(id);
